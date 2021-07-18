@@ -3,24 +3,23 @@ package am.gitc.core.repo.impl;
 import am.gitc.core.module.Books;
 import am.gitc.core.repo.BookRepo;
 
-import java.awt.print.Book;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.*;
-import java.util.HashMap;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class BookRepoImpl implements BookRepo {
-    private String url = "jdbc:mysql://localhost:3306/test?user=root&password=rootroot";
-    private Connection connection;
+    private static final String url = "jdbc:mysql://localhost:3306/test?user=root&password=rootroot";
+    private static Connection connection;
 
     public BookRepoImpl() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(url);
-
     }
 
     @Override
