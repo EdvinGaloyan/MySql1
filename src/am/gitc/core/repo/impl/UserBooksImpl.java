@@ -4,9 +4,7 @@ import am.gitc.core.module.Books;
 import am.gitc.core.module.User;
 import am.gitc.core.module.UserBooks;
 import am.gitc.core.repo.UserBooksRepo;
-import com.mysql.cj.jdbc.result.ResultSetImpl;
 
-import java.awt.print.Book;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -73,19 +71,14 @@ public class UserBooksImpl implements UserBooksRepo {
         String query = "select * from user inner join userbook on " +
                 "userbook.userId = user.id left join books on userbook.bookId = books.id;";
         try (Statement statement = connection.createStatement()) {
-
             try (ResultSet resultSet = statement.executeQuery(query)) {
-
                 while (resultSet.next()) {
                     User user = new User();
                     Books books = new Books();
-
                     user.setName(resultSet.getString("user.name"));
                     user.setSurname(resultSet.getString("surName"));
                     user.setAge(resultSet.getInt("age"));
                     user.setIq(resultSet.getDouble("iq"));
-                    user.setBookId(resultSet.getInt("bookId"));
-
                     books.setAfter(resultSet.getString("after"));
                     books.setName(resultSet.getString("books.name"));
                     hm.put(user, books);
